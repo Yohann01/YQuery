@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YQuery.Domain.DConnection
+namespace YQuery.Domain.Model
 {
-    public class DConnection
+    public interface IInfraAccess
     {
     }
 }

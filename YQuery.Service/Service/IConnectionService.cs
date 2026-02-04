@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using YQuery.Shared.Model;
 
-namespace YQuery.Service
+namespace YQuery.Service.Service
 {
     public interface IConnectionService
     {
-        Task<bool> Connect();
 
-        Task<List<string>> GetDatabasesAsync();
+        Task<(List<string>, string errorMessage)> GetDatabasesAsync();
     }
 }

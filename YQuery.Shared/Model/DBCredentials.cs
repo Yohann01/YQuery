@@ -9,7 +9,7 @@ namespace YQuery.Shared.Model
     public class DBCredentials
     {
         public string? SeverName { get; set; }
-        public string? DatabaseName { get; set; } = "DellwoodBE";
+        public string? DatabaseName { get; set; }
         public string? UserId { get; set; }
         public string? Password { get; set; }
     }

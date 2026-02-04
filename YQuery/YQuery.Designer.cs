@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-
+using Guna.UI2.WinForms;
+using Guna.UI2.WinForms.Suite;
 namespace YQuery
 {
     partial class YQuery : Form
@@ -8,7 +9,8 @@ namespace YQuery
         // LEFT PANEL CONTROLS
         private GroupBox DatabaseConnectionGroupBox;
         private Label ServerNameLabel;
-        private ComboBox ServerNameComboBox;
+        private Guna2TextBox ServerNameTextBox;  // CHANGED: Use Guna2TextBox instead
+        private Guna2ComboBox ServerNameComboBox; // Keep if you want dropdown for suggestions
         private GroupBox AuthenticationGroupBox;
         private RadioButton WindowsAuthRadioButton;
         private RadioButton SQLServerAuthRadioButton;
@@ -45,9 +47,15 @@ namespace YQuery
 
         private void InitializeComponent()
         {
+            CustomizableEdges customizableEdges1 = new CustomizableEdges();
+            CustomizableEdges customizableEdges2 = new CustomizableEdges();
+            CustomizableEdges customizableEdges3 = new CustomizableEdges();
+            CustomizableEdges customizableEdges4 = new CustomizableEdges();
+
             this.DatabaseConnectionGroupBox = new GroupBox();
+            this.ServerNameTextBox = new Guna2TextBox();  // ADDED
+            this.ServerNameComboBox = new Guna2ComboBox(); // Optional: for dropdown suggestions
             this.ServerNameLabel = new Label();
-            this.ServerNameComboBox = new ComboBox();
             this.AuthenticationGroupBox = new GroupBox();
             this.WindowsAuthRadioButton = new RadioButton();
             this.SQLServerAuthRadioButton = new RadioButton();
@@ -56,14 +64,12 @@ namespace YQuery
             this.PasswordLabel = new Label();
             this.PasswordTextBox = new TextBox();
             this.LogInButton = new Button();
-
             this.DatabaseNameSelectionGroupBox = new GroupBox();
             this.DatabaseNameLabel = new Label();
             this.DatabaseNameComboBox = new ComboBox();
             this.SetDatabaseButton = new Button();
             this.ChangeServerButton = new Button();
             this.ChangeDatabaseButton = new Button();
-
             this.SearchOptionsGroupBox = new GroupBox();
             this.SearchButton = new Button();
             this.SearchInGroupBox = new GroupBox();
@@ -74,13 +80,11 @@ namespace YQuery
             this.BeginsWithRadioButton = new RadioButton();
             this.EndsWithRadioButton = new RadioButton();
             this.SearchTextBox = new TextBox();
-
             this.ResultsGroupBox = new GroupBox();
             this.ResultsTextBox = new TextBox();
             this.ExportToPathLabel = new Label();
             this.ExportPathTextBox = new TextBox();
             this.ExportButton = new Button();
-
             this.DatabaseConnectionGroupBox.SuspendLayout();
             this.AuthenticationGroupBox.SuspendLayout();
             this.DatabaseNameSelectionGroupBox.SuspendLayout();
@@ -89,13 +93,11 @@ namespace YQuery
             this.ConditionGroupBox.SuspendLayout();
             this.ResultsGroupBox.SuspendLayout();
             this.SuspendLayout();
-
-            #region DatabaseConnectionGroupBox
             // 
             // DatabaseConnectionGroupBox
             // 
+            this.DatabaseConnectionGroupBox.Controls.Add(this.ServerNameTextBox);
             this.DatabaseConnectionGroupBox.Controls.Add(this.ServerNameLabel);
-            this.DatabaseConnectionGroupBox.Controls.Add(this.ServerNameComboBox);
             this.DatabaseConnectionGroupBox.Controls.Add(this.AuthenticationGroupBox);
             this.DatabaseConnectionGroupBox.Controls.Add(this.LoginLabel);
             this.DatabaseConnectionGroupBox.Controls.Add(this.LoginTextBox);
@@ -104,10 +106,34 @@ namespace YQuery
             this.DatabaseConnectionGroupBox.Controls.Add(this.LogInButton);
             this.DatabaseConnectionGroupBox.Location = new Point(20, 20);
             this.DatabaseConnectionGroupBox.Name = "DatabaseConnectionGroupBox";
-            this.DatabaseConnectionGroupBox.Size = new Size(360, 220);
+            this.DatabaseConnectionGroupBox.Size = new Size(360, 238);
             this.DatabaseConnectionGroupBox.TabIndex = 0;
             this.DatabaseConnectionGroupBox.TabStop = false;
             this.DatabaseConnectionGroupBox.Text = "Database Connection";
+            // 
+            // ServerNameTextBox
+            // 
+            this.ServerNameTextBox.BorderColor = Color.FromArgb(200, 213, 230);
+            this.ServerNameTextBox.BorderRadius = 0;
+            this.ServerNameTextBox.Cursor = Cursors.IBeam;
+            this.ServerNameTextBox.CustomizableEdges = customizableEdges1;
+            this.ServerNameTextBox.DefaultText = "";
+            this.ServerNameTextBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            this.ServerNameTextBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            this.ServerNameTextBox.DisabledState.ForeColor = Color.FromArgb(166, 166, 166);
+            this.ServerNameTextBox.DisabledState.PlaceholderForeColor = Color.FromArgb(166, 166, 166);
+            this.ServerNameTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            this.ServerNameTextBox.Font = new Font("Segoe UI", 10F);
+            this.ServerNameTextBox.ForeColor = Color.FromArgb(68, 88, 112);
+            this.ServerNameTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            this.ServerNameTextBox.Location = new Point(110, 22);
+            this.ServerNameTextBox.Name = "ServerNameTextBox";
+            this.ServerNameTextBox.PasswordChar = '\0';
+            this.ServerNameTextBox.PlaceholderText = "Enter or select server name";
+            this.ServerNameTextBox.SelectedText = "";
+            this.ServerNameTextBox.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            this.ServerNameTextBox.Size = new Size(235, 36);
+            this.ServerNameTextBox.TabIndex = 1;
             // 
             // ServerNameLabel
             // 
@@ -117,19 +143,11 @@ namespace YQuery
             this.ServerNameLabel.TabIndex = 0;
             this.ServerNameLabel.Text = "Server Name:";
             // 
-            // ServerNameComboBox
-            // 
-            this.ServerNameComboBox.DropDownStyle = ComboBoxStyle.DropDown;
-            this.ServerNameComboBox.Location = new Point(110, 22);
-            this.ServerNameComboBox.Name = "ServerNameComboBox";
-            this.ServerNameComboBox.Size = new Size(235, 23);
-            this.ServerNameComboBox.TabIndex = 1;
-            // 
             // AuthenticationGroupBox
             // 
             this.AuthenticationGroupBox.Controls.Add(this.WindowsAuthRadioButton);
             this.AuthenticationGroupBox.Controls.Add(this.SQLServerAuthRadioButton);
-            this.AuthenticationGroupBox.Location = new Point(110, 50);
+            this.AuthenticationGroupBox.Location = new Point(110, 64);
             this.AuthenticationGroupBox.Name = "AuthenticationGroupBox";
             this.AuthenticationGroupBox.Size = new Size(235, 55);
             this.AuthenticationGroupBox.TabIndex = 2;
@@ -155,7 +173,7 @@ namespace YQuery
             // 
             // LoginLabel
             // 
-            this.LoginLabel.Location = new Point(15, 115);
+            this.LoginLabel.Location = new Point(15, 129);
             this.LoginLabel.Name = "LoginLabel";
             this.LoginLabel.Size = new Size(85, 20);
             this.LoginLabel.TabIndex = 3;
@@ -164,14 +182,14 @@ namespace YQuery
             // 
             // LoginTextBox
             // 
-            this.LoginTextBox.Location = new Point(110, 113);
+            this.LoginTextBox.Location = new Point(110, 127);
             this.LoginTextBox.Name = "LoginTextBox";
             this.LoginTextBox.Size = new Size(235, 23);
             this.LoginTextBox.TabIndex = 4;
             // 
             // PasswordLabel
             // 
-            this.PasswordLabel.Location = new Point(15, 145);
+            this.PasswordLabel.Location = new Point(15, 159);
             this.PasswordLabel.Name = "PasswordLabel";
             this.PasswordLabel.Size = new Size(85, 20);
             this.PasswordLabel.TabIndex = 5;
@@ -180,7 +198,7 @@ namespace YQuery
             // 
             // PasswordTextBox
             // 
-            this.PasswordTextBox.Location = new Point(110, 143);
+            this.PasswordTextBox.Location = new Point(110, 157);
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.PasswordChar = '●';
             this.PasswordTextBox.Size = new Size(235, 23);
@@ -188,21 +206,18 @@ namespace YQuery
             // 
             // LogInButton
             // 
-            this.LogInButton.Location = new Point(110, 180);
+            this.LogInButton.Location = new Point(110, 194);
             this.LogInButton.Name = "LogInButton";
             this.LogInButton.Size = new Size(100, 30);
             this.LogInButton.TabIndex = 7;
             this.LogInButton.Text = "Log In";
-            #endregion
-
-            #region DatabaseNameSelectionGroupBox
             // 
             // DatabaseNameSelectionGroupBox
             // 
             this.DatabaseNameSelectionGroupBox.Controls.Add(this.DatabaseNameLabel);
             this.DatabaseNameSelectionGroupBox.Controls.Add(this.DatabaseNameComboBox);
             this.DatabaseNameSelectionGroupBox.Controls.Add(this.SetDatabaseButton);
-            this.DatabaseNameSelectionGroupBox.Location = new Point(20, 250);
+            this.DatabaseNameSelectionGroupBox.Location = new Point(20, 264);
             this.DatabaseNameSelectionGroupBox.Name = "DatabaseNameSelectionGroupBox";
             this.DatabaseNameSelectionGroupBox.Size = new Size(360, 100);
             this.DatabaseNameSelectionGroupBox.TabIndex = 1;
@@ -232,13 +247,10 @@ namespace YQuery
             this.SetDatabaseButton.Size = new Size(120, 30);
             this.SetDatabaseButton.TabIndex = 2;
             this.SetDatabaseButton.Text = "Set Database";
-            #endregion
-
-            #region Standalone Buttons
             // 
             // ChangeServerButton
             // 
-            this.ChangeServerButton.Location = new Point(50, 360);
+            this.ChangeServerButton.Location = new Point(50, 374);
             this.ChangeServerButton.Name = "ChangeServerButton";
             this.ChangeServerButton.Size = new Size(120, 30);
             this.ChangeServerButton.TabIndex = 4;
@@ -246,14 +258,11 @@ namespace YQuery
             // 
             // ChangeDatabaseButton
             // 
-            this.ChangeDatabaseButton.Location = new Point(190, 360);
+            this.ChangeDatabaseButton.Location = new Point(190, 374);
             this.ChangeDatabaseButton.Name = "ChangeDatabaseButton";
             this.ChangeDatabaseButton.Size = new Size(130, 30);
             this.ChangeDatabaseButton.TabIndex = 5;
             this.ChangeDatabaseButton.Text = "Change Database";
-            #endregion
-
-            #region SearchOptionsGroupBox
             // 
             // SearchOptionsGroupBox
             // 
@@ -349,9 +358,6 @@ namespace YQuery
             this.SearchTextBox.Name = "SearchTextBox";
             this.SearchTextBox.Size = new Size(530, 23);
             this.SearchTextBox.TabIndex = 3;
-            #endregion
-
-            #region ResultsGroupBox
             // 
             // ResultsGroupBox
             // 
@@ -399,8 +405,6 @@ namespace YQuery
             this.ExportButton.Size = new Size(100, 30);
             this.ExportButton.TabIndex = 3;
             this.ExportButton.Text = "Export";
-            #endregion
-
             // 
             // YQuery
             // 
@@ -416,12 +420,10 @@ namespace YQuery
             this.Name = "YQuery";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Export Script";
-
             this.DatabaseConnectionGroupBox.ResumeLayout(false);
             this.DatabaseConnectionGroupBox.PerformLayout();
             this.AuthenticationGroupBox.ResumeLayout(false);
             this.DatabaseNameSelectionGroupBox.ResumeLayout(false);
-            this.DatabaseNameSelectionGroupBox.PerformLayout();
             this.SearchOptionsGroupBox.ResumeLayout(false);
             this.SearchOptionsGroupBox.PerformLayout();
             this.SearchInGroupBox.ResumeLayout(false);
@@ -429,7 +431,6 @@ namespace YQuery
             this.ResultsGroupBox.ResumeLayout(false);
             this.ResultsGroupBox.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
         }
     }
 }

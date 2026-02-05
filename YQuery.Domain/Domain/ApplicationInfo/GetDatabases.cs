@@ -19,21 +19,15 @@ namespace YQuery.Domain.Domain.ApplicationInfo
 
         public async Task<(List<string>, string)> GetDatabasesAsync()
         {
-            await Initialize();
+            await this.Initialize();
 
-            return (databases, errorMessage);
+            return (this.databases, this.errorMessage);
         }
 
         private async Task Initialize()
         {
-            try
-            {
-                (databases, errorMessage) = await InfraApplicationInfo.GetDatabasesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            (this.databases, this.errorMessage) = await this.InfraApplicationInfo.GetDatabasesAsync();
+            
         }
     }
 }

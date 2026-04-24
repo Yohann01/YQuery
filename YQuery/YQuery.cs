@@ -1,6 +1,4 @@
-using Azure.Core;
 using Microsoft.Extensions.Options;
-using System.Net;
 using YQuery.Service;
 using YQuery.Service.Service;
 using YQuery.Shared.Model;
@@ -39,14 +37,17 @@ namespace YQuery
         {
             //WindowsAuthRadioButton.CheckedChanged += Auth_CheckedChanged;
             //SQLServerAuthRadioButton.CheckedChanged += Auth_CheckedChanged;
-            ServerNameTextBox.TextChanged += ServerNameTextBox_TextChanged;
-            ServerNameTextBox.KeyDown += ServerNameTextBox_KeyDown;
-            ServerNameTextBox.Resize += (s, e) => this.serverSuggestionsMenu.Width = this.ServerNameTextBox.Width;
+            this.ServerNameTextBox.TextChanged += ServerNameTextBox_TextChanged;
+            this.ServerNameTextBox.KeyDown += ServerNameTextBox_KeyDown;
+            this.ServerNameTextBox.Resize += (s, e) => this.serverSuggestionsMenu.Width = this.ServerNameTextBox.Width;
             this.serverSuggestionsMenu.AutoSize = false;
             this.LogInButton.Click += ClickLogin;
             this.ChangeServerButton.Click += ClickChangeServer;
             this.ChangeDatabaseButton.Click += ToggleDisableDatabaseNameGroupBox;
             this.SetDatabaseButton.Click += ClickSetDatabase;
+            this.DatabaseNameComboBox.SelectionChangeCommitted += ServerNameComboBox_SelectionChangeCommitted;
+
+
 
         }
 
@@ -70,7 +71,14 @@ namespace YQuery
 
         private void ServerNameTextBox_TextChanged(object sender, EventArgs e)
         {
+
             this.ShowServerSuggestions();
+        }
+        private void ServerNameComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var selected = ServerNameComboBox.SelectedItem.ToString();
+            MessageBox.Show($"You selected: {selected}");
+
         }
 
         private void ServerNameTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -176,6 +184,8 @@ namespace YQuery
             if (databases != null)
             {
                 databases.ForEach(db => this.DatabaseNameComboBox.Items.Add(db));
+                DatabaseNameComboBox.SelectedItem = databases.FirstOrDefault();
+
                 this.SetEnabling(true);
                 this.SetEnableResultsAndSearch(false);
             }
@@ -199,6 +209,8 @@ namespace YQuery
 
         private void ClickSetDatabase(object? sender, EventArgs e)
         {
+
+
             if (string.IsNullOrWhiteSpace(this.ServerNameComboBox.SelectedItem?.ToString()) &&
                string.IsNullOrWhiteSpace(this.ServerNameComboBox.Text?.ToString()))
                 return;

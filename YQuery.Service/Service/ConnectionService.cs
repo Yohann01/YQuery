@@ -25,22 +25,7 @@ namespace YQuery.Service.Service
 
         public async Task<(List<string>, string errorMessage)> GetDatabasesAsync()
         {
-            string errorMessage = string.Empty;
-            var databases = new List<string>();
-
-            try
-            {
-                return (databases, errorMessage) = await this.getDatabases.GetDatabasesAsync();
-
-            }
-            catch (SqlException ex)
-            {
-                return (null, ex.Message.ToString())!;
-            }
-            catch (Exception ex)
-            {
-                return (null, ex.Message.ToString())!;
-            }
+            return await this.getDatabases.GetDatabasesAsync();
         }
 
 
